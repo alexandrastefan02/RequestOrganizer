@@ -1,0 +1,18 @@
+============================STEFAN_ALEXANDRA_CAMELIA_324CB==============================================================
+
+Tema consta in implementarea unui sistem de management al unei primarii, impartita pe birouri ce se ocupa de diferite tipuri de entitati, scopul fiind
+solutionarea cererilor in ordinea prioritatilor, respectiv, la prioritati egale, vor fi rezolvate in ordine cronologica.
+Cererea este modelata in clasa cu acelasi nume. Pentru tipul cererii am folosit "enum" cu parametrii, intrucat doream lucrul cu string-uri.
+Data este data de un obiect de tip Date, ce poate fi usor parsat folosind SimpleDateFormat si pattern -ul corespunzator.
+Pentru inceput, am creat clasa abstracta Utilizator, extinsa de toate clasele ce reprezinta entitati ce pot inainta o cerere:Persoana, Angajat, Elev,
+Pensionar, EntitateJuridica. In clasa Utilizator, exista metode ce fac posibil procesul de inaintare de cerere.
+Primul pas in crearea unei cereri este scrierea textului propriu zis(e.g:"Subsemnatul X, ...").
+Aici intervine o problema atunci cand un utilizator incearca safaca o cerere necorespunzatoare pozitiei lui(e.g:Un angajat nu poate cere inlocuire de carnet de elev..). Verific, deci, daca tipul cererii este potrivit,
+daca nu, arunc o exceptie. Acestea exceptie este 'custom', modelata in clasa IllegalRequestException. Constructorul construit permite si pasarea unui mesaj in caz
+de exceptie.
+Exceptia IllegalRequestException este handled intr-un bloc de try..catch, chiar in metoda de creare cerere.
+Prima colectie folosita este o simpla lista de useri, folositoare atunci cand adaug un utilizator in sistem. Am ales o lista, tocmai datorita simplitatii ei,
+intrucat n-aveam nevoie de o ordine anume. Mai exista, de asemenea un hashmap ce mapeaza useri si tipuri de cereri, folositoare pentru ca in partea de "retrage cerere"
+aveam nevoie sa gasesc tipul unei cereri pentru a sti din ce birou sa o sterg.
+Pentru Birou, am folosit genericitatea, dupa cum spune enuntul temei. Fiecare birou are o priority queue in care isi stocheaza cererile. Am ales priority
+queue pentru simplitatea ordonarii elementelor in cazul de fata. Un alt priority queue este facut pentru a stoca toate cererile posibile.
